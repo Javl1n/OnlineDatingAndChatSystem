@@ -1,7 +1,7 @@
 <div class="bg-white shadow-sm dark:bg-slate-800 dark:text-white block h-full pt-5 pl-5 flex flex-col">
-    <div class="grid grid-cols-10 pr-5">
-        <span class="my-auto col-span-1">Search</span>
-        <form method="get" class="col-span-9">
+    <div class="flex pr-5">
+        <span class="my-auto w-16">Search</span>
+        <form method="get" class="flex-1">
             <x-text-input wire:model.live="search" class="w-full h-15 rounded-full text-lg"/>
         </form>
     </div>

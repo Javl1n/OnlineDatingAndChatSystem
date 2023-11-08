@@ -26,14 +26,21 @@
             <livewire:search-users />
         </div>
         <div class="flex flex-col w-4/6 flex-shrink-0 text-slate-800 dark:text-white overflow-y-auto lg:h-[10vh] xl:h-[85vh]">
-            <div class="flex-1 bg-primary-600">
+            <div class="flex-1">
                 sa
             </div>
-            <div class="bg-primary-200 p-4 flex">
-                <x-icon name="plus-fill" height="30" width="30" class="mr-2" />
-                <x-icon name="plus-fill" height="30" width="30" class="mr-2" />
-                <x-icon name="plus-fill" height="30" width="30" class="mr-2" />
-                <x-icon name="plus-fill" height="30" width="30" class="mr-2" />
+            <div class="bg-white shadow dark:bg-transparent dark:shadow-indigo-400 p-4 flex content-end">
+                <x-icon name="plus-fill" height="30" width="30" class="mr-2 my-auto fill-indigo-400" />
+                <x-icon name="plus-fill" height="30" width="30" class="mr-2 my-auto fill-indigo-400" />
+                <x-icon name="plus-fill" height="30" width="30" class="mr-2 my-auto fill-indigo-400" />
+                <textarea
+                    type="text"
+                    class="h-[30px] resize-none flex-1 mr-2 pt-2 rounded-[25px] border border-indigo-400 dark:bg-inherit"
+                    x-data="{ resize: () => { $el.style.height = '30px'; $el.style.height = $el.scrollHeight + 'px'; } }"
+                    x-init="resize()"
+                    @input="resize()"
+                    ></textarea>
+                    <x-icon name="plus-fill" height="30" width="30" class="mr-2 fill-indigo-400 h-10" />
             </div>
         </div>
     </div>
