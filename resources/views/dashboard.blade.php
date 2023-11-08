@@ -26,7 +26,7 @@
                     <div class="bg-white shadow-sm dark:bg-slate-700 rounded-xl p-5">
                         <div class="flex mb-5">
                             <img src="https://i.pravatar.cc/60?u={{ $post->user->id }}" width="50" height="50" alt="" class="mr-4 rounded-full">
-                            <span class="pt-3 font-bold">{{ $user->name }}</span>
+                            <span class="pt-3 font-bold">{{ $post->user->name }}</span>
                         </div>
                         <div class="">
                             {{ $post->text_content }}

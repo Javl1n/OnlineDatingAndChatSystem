@@ -17,11 +17,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'farmodia@gmail.com',
             'password'=> bcrypt('admin123'),
         ]);
-
-        foreach(\App\Models\User::factory(10)->create() as $user){
-            \App\Models\Post::factory(2)->create([
-                'user_id' => $user->id,
-            ]);
-        }
+        \App\Models\User::factory(10)->create();
+        \App\Models\User::all()->map(
+            function ($user) {
+                 \App\Models\Post::factory(2)->create([
+                    'user_id' => $user->id,
+                 ]);
+            }
+        );
     }
 }
