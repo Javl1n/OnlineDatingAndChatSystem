@@ -17,10 +17,14 @@
                     </div>
                 @else
                     @foreach ($users as $user)
-                        <div class=" rounded-xl py-5 pr-5 my-auto flex">
-                            <img src="https://i.pravatar.cc/60?u={{ $user->id }}" width="60" height="60" alt="" class="mr-4 rounded-full">
-                            <span class="pt-5">{{ $user->name }}</span>
-                        </div>
+                        @if ($user->id !== auth()->user()->id)
+                            <a href="/chat/{{ $user->id }}">
+                                <div class=" rounded-xl py-5 pr-5 my-auto flex">
+                                        <img src="https://i.pravatar.cc/60?u={{ $user->id }}" width="60" height="60" alt="" class="mr-4 rounded-full">
+                                        <span class="pt-5">{{ $user->name }}</span>
+                                </div>
+                            </a> 
+                        @endif
                     @endforeach
                 @endif
             </div>

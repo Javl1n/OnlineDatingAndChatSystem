@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,12 +26,9 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/chat', function () {
-    return view('chats.index', [
-        'people'=> \App\Models\User::all(),
-        'posts' => \App\Models\Post::all(),
-    ]);
-})->middleware(['auth', 'verified'])->name('chat');
+Route::get('/chat', [MessageController::class, 'index'])->middleware(['auth', 'verified'])->name('chat');
+Route::get('/chat/{user}', [MessageController::class, 'show'])->middleware(['auth', 'verified']);
+Route::post('/chat/{user}', [MessageController::class, 'store'])->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
