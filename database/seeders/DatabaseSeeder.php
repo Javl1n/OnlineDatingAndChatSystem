@@ -22,6 +22,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'vonne@gmail.com',
             'password'=> bcrypt('admin123'),
         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Ferdinand Cabigting',
+            'email' => 'cabigtingsam@gmail.com',
+            'password'=> bcrypt('admin123'),
+        ]);
         \App\Models\User::factory(10)->create();
         \App\Models\User::all()->map(
             function ($user) {
