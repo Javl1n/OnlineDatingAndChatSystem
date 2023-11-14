@@ -9,7 +9,7 @@
         <div class="md:w-2/6 w-full h-full overflow-y-hidden">
             <livewire:search-users />
         </div>
-        <div class="md:flex flex-col justify-center w-4/6 flex-shrink-0 text-slate-800 dark:text-white overflow-y-auto lg:h-[10vh] xl:h-[85vh] border hidden ">
+        <div class="md:flex flex-col justify-center w-4/6 flex-shrink-0 text-slate-800 dark:text-white overflow-y-auto lg:h-[10vh] xl:h-[85vh] border dark:border-none hidden ">
             <div class="text-xl text-center">Please select a user</div>
         </div>
     </div>

@@ -9,14 +9,14 @@
         <div class="w-2/6 h-full overflow-y-hidden md:block hidden">
             <livewire:search-users />
         </div>    
-        <div class="flex flex-col md:w-4/6 w-full flex-shrink-0 text-slate-800 dark:text-white overflow-y-auto lg:h-[10vh] xl:h-[85vh] border">
-            <div class="h-24 flex bg-white p-5">
-                <img src="https://i.pravatar.cc/60?u={{ $receiver->id }}" width="60" height="60" alt="" class="mr-4 rounded-full">
+        <div class="flex flex-col md:w-4/6 w-full flex-shrink-0 text-slate-800 dark:text-white overflow-y-auto lg:h-[10vh] xl:h-[85vh] border dark:border-none">
+            <div class="h-24 flex bg-white dark:bg-slate-800 p-5">
+                <img src="https://i.pravatar.cc/60?u={{ $receiver->id }}" width="50" height="60" alt="" class="mr-4 rounded-full">
                 <div class="flex-1 flex flex-col justify-center">
                     <span class="font-bold m-0">{{ $receiver->name }}</span> 
                     <small class="text-gray-500 m-0">online</small>
                 </div>
-                <a href="/chat" class="p-4 rounded-xl text-white bg-red-500 md:hidden">Go back</a>
+                <a href="/chat" class="flex flex-col justify-center h-10 my-auto w-24 rounded-full text-white bg-red-500 md:hidden"><div class="text-center">Go back</div></a>
             </div>
             <livewire:chat-box :receiver="$receiver" />
             <form action="/chat/{{ $receiver->id }}" method="post">
