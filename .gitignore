@@ -5,6 +5,7 @@
 /public/storage
 /storage/*.key
 /storage/clockwork
+/storage/clockwork/index
 /vendor
 .env
 .env.backup
