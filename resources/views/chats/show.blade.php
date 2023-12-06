@@ -19,9 +19,21 @@
                 <a href="/chat" class="flex flex-col justify-center h-10 my-auto w-24 rounded-full text-white bg-red-500 md:hidden"><div class="text-center">Go back</div></a>
             </div>
             <livewire:chat-box :receiver="$receiver" />
-            <form action="/chat/{{ $receiver->id }}" method="post">
+            <form action="/chat/{{ $receiver->id }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="bg-white shadow dark:bg-transparent dark:shadow-indigo-400 p-4 flex content-end">
+                    {{-- <x-input-error :messages="$errors->get('file')" class="mt-2" /> --}}
+                    {{-- <x-text-input name="file" type="file" class="w-" /> --}}
+                    <div x-data="">
+                        <input type="file" class="hidden" id="file" name="file" >
+                        <x-icon x-on:click="clickFile" name="plus-fill" class="h-10 me-2 fill-primary-400" />
+                        <script>
+                            function clickFile ()
+                            {
+                                document.getElementById("file").click();
+                            }
+                        </script>
+                    </div>
                     <textarea
                         type="text"
                         name="message"

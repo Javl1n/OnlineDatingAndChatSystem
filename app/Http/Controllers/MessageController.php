@@ -26,15 +26,30 @@ class MessageController extends Controller
 
     public function store(User $user, Request $request)
     {
+
         $request->validate([
             'message'=> 'required',
         ]);
 
-        Message::create([
+        $message = Message::create([
             'sender_id' => auth()->user()->id,
             'receiver_id' => $user->id,
             'content' => $request->message,
         ]);
+
+        // if(isset($request->file))
+        // {
+        //     $message->media()->create([
+        //         'mime_type' => $request->file->get
+        //     ]);
+        // }
+
+        if(isset($request->file)) {
+            $message->media()->create([
+                'mime_type' => $request->file->getClientOriginalExtension(),
+                'url' => $request->file->store('media')
+            ]);
+        }
 
         return back();
     }
