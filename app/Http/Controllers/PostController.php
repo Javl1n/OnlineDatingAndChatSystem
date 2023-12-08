@@ -8,6 +8,12 @@ use Illuminate\Validation\Rules\File;
 
 class PostController extends Controller
 {
+    public function index() {
+        return view('posts.index', [
+            'people'=> \App\Models\User::whereNot('id', auth()->user()->id)->get(),
+            'posts' => Post::orderBy('created_at', 'desc')->get(),
+        ]);
+    }
     public function store(Request $request)
     {
         $request->validate([

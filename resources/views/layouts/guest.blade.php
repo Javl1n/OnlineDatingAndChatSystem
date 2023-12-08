@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans text-text-900 antialiased">
         <div class="min-h-screen grid grid-cols-3 sm:justify-center items-center pt-6 sm:pt-0 bg-secondary-200 dark:bg-gray-900">
-            
+                
 
             <div class="col-span-1">
                 <div class="ml-40">

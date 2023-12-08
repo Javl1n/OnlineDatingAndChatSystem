@@ -11,7 +11,7 @@ class SearchUsers extends Component
     public function render()
     {
         sleep(1);
-        $users = User::search($this->search)->get();
+        $users = User::whereNot('id', auth()->user()->id)->search($this->search)->get();
 
         $data = [
             'users' => $users,

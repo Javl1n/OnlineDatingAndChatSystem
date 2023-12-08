@@ -11,7 +11,7 @@
         </div>    
         <div class="flex flex-col md:w-4/6 w-full flex-shrink-0 text-slate-800 dark:text-white overflow-y-auto lg:h-[10vh] xl:h-[85vh] border dark:border-none">
             <div class="h-24 flex bg-white dark:bg-slate-800 p-5">
-                <img src="https://i.pravatar.cc/60?u={{ $receiver->id }}" width="50" height="60" alt="" class="mr-4 rounded-full">
+                <x-profile-picture class="h-14 w-14" :src="asset($receiver->profile->url)" />
                 <div class="flex-1 flex flex-col justify-center">
                     <span class="font-bold m-0">{{ $receiver->name }}</span> 
                     <small class="text-gray-500 m-0">online</small>
