@@ -41,20 +41,20 @@
                         </div>
                     </div>
                 @endverified
-                @foreach ($posts as $post)
-                    <div class="bg-white shadow-sm dark:bg-slate-700 rounded-xl">
+                @foreach ($pendings as $post)
+                    <div class="bg-white shadow-sm dark:bg-slate-700 rounded-xl opacity-60">
                         <div class="flex justify-between m-5">
                             <div class="flex">
                                 <a href="{{ route('profile.show', ['user' => $post->user->id]) }}" class="flex">
                                 <x-profile-picture :src="asset($post->user->profile->url)" />
                                 </a>
-                                <span class="font-bold">{{ $post->user->name }} <br> <span class="text-gray-500 font-normal text-sm">{{ $post->created_at->diffForHumans() }}</span></span>
+                                <span class="font-bold">{{ $post->user->name }} <br> <span class="text-gray-500 font-normal text-sm">{{ $post->created_at->diffForHumans() }} - pending</span></span>
                             </div>
-                            @mine($post->user->id)                              
-                            <div>
-                                <a href="" class="bg-accent-500 text-white px-3 py-1 rounded">edit</a>
-                            </div>
-                            @endmine
+                            {{-- @mine($post->user->id)                              
+                                <div>
+                                    <a href="" class="bg-accent-500 text-white px-3 py-1 rounded">edit</a>
+                                </div>
+                            @endmine --}}
                         </div>
                         <div class="">
                             <p class="ms-5 mb-5">{{ $post->text_content }}</p>
@@ -65,33 +65,50 @@
                                 @endisset
                             </div>
                         </div>
-                        <div class="border-t mt-3 mx-5"></div>
-                        <div class="py-4 grid grid-cols-2">
-                            <livewire:like-post :post="$post" />
-                            <div class="flex justify-center text-gray-500">
-                                <div class="flex flex-col justify-center">
-                                    <x-icon name="comment" class="h-5 mr-2 fill-gray-500" />
+                    </div>
+                @endforeach
+                @foreach ($posts as $post)
+                    <div class="bg-white shadow-sm dark:bg-slate-700 rounded-xl">
+                        <div class="flex justify-between m-5">
+                            <div class="flex">
+                                <a href="{{ route('profile.show', ['user' => $post->user->id]) }}" class="flex">
+                                <x-profile-picture :src="asset($post->user->profile->url)" />
+                                </a>
+                                <span class="font-bold">{{ $post->user->name }} <br> <span class="text-gray-500 font-normal text-sm">{{ $post->created_at->diffForHumans() }}</span></span>
+                            </div>
+                            {{-- @mine($post->user->id)                              
+                                <div>
+                                    <a href="" class="bg-accent-500 text-white px-3 py-1 rounded">edit</a>
                                 </div>
-                                Comment
+                            @endmine --}}
+                        </div>
+                        <div class="">
+                            <p class="ms-5 mb-5">{{ $post->text_content }}</p>
+                            <div>
+                                {{-- {{ $post?->media }} --}}
+                                @isset($post->media->url)
+                                    <img src="{{ asset($post->media?->url) }}" class="">
+                                @endisset
                             </div>
                         </div>
+                        @verified
+                            <div class="border-t mt-3 mx-5"></div>
+                            <div class="py-2 grid grid-cols-2">
+                                <livewire:like-post :post="$post" />
+                                <div class="flex justify-center text-gray-500">
+                                    <div class="flex flex-col justify-center">
+                                        <x-icon name="comment" class="h-5 mr-2 fill-gray-500" />
+                                    </div>
+                                    Comment
+                                </div>
+                            </div>
+                            <div class="border-t mx-5"></div>
+                            <livewire:comment-post :post="$post" />
+                        @else
+                            <div class="mt-4"></div>
+                        @endverified    
                     </div>
                 @endforeach
         </div>
-        {{-- <div class="w-2/6 p-5">
-            <div class="grid gap-5">
-                <div class="bg-white shadow-sm dark:bg-slate-800 dark:text-white rounded-xl">
-                    <div class="p-5 text-lg">Contacts</div>
-                    <div class="grid gap-2 h-[74vh] overflow-auto">
-                        @foreach($people as $user)
-                            <div class=" rounded-xl p-5 my-auto flex">
-                                <img src="https://i.pravatar.cc/60?u={{ $user->id }}" width="60" height="60" alt="" class="mr-4 rounded-full">
-                                <span class="pt-5">{{ $user->name }}</span>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
 </x-app-layout>

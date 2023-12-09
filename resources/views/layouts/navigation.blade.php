@@ -12,19 +12,23 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Home') }}
-                    </x-nav-link>
-                    @verified
-                        <x-nav-link :href="route('chats.index')" :active="request()->routeIs('chats.*')">
-                            {{ __('Chat') }}
-                        </x-nav-link>
-                    @endverified
-                    @admin
-                        <x-nav-link :href="route('admin.posts.index')" :active="request()->routeIs('admin.*')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
-                    @endadmin
+                    @restricted
+                    @else
+                        @admin
+                            <x-nav-link :href="route('admin.posts.index')" :active="request()->routeIs('admin.*')">
+                                {{ __('Admin') }}
+                            </x-nav-link>
+                        @else
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                                {{ __('Home') }}
+                            </x-nav-link>
+                        @endadmin
+                        @verified
+                            <x-nav-link :href="route('chats.index')" :active="request()->routeIs('chats.*')">
+                                {{ __('Chat') }}
+                            </x-nav-link>
+                        @endverified
+                    @endrestricted
                 </div>
             </div>
 

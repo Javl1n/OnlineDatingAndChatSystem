@@ -14,4 +14,19 @@ class Message extends Model
     {
         return $this->morphOne(Media::class,'mediable');
     }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+
+    public function report()
+    {
+        return $this->hasOne(Report::class);
+    }
 }

@@ -9,8 +9,10 @@ use Livewire\Component;
 
 class ChatBox extends Component
 {
-    public $receiver;
+    public User $receiver;
     public $user;
+
+    public $messages;
 
     public function mount(User $receiver) {
         $this->receiver = $receiver;
@@ -19,11 +21,9 @@ class ChatBox extends Component
 
     public function render()
     {
-        $messages = Message::whereIn('receiver_id', [$this->receiver->id, $this->user->id])
+        $this->messages = Message::whereIn('receiver_id', [$this->receiver->id, $this->user->id])
                             ->whereIn('sender_id', [$this->receiver->id, $this->user->id])
                             ->latest()->get();
-        return view('livewire.chat-box', [
-            'messages'=> $messages,
-        ]);
+        return view('livewire.chat-box');
     }
 }

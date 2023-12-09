@@ -10,7 +10,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $with = ['user', 'likes', 'media'] ;
+    protected $with = ['user', 'likes', 'comments', 'media'] ;
 
     public function user()
     {
@@ -20,6 +20,11 @@ class Post extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function media(): MorphOne

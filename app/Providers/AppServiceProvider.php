@@ -31,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
             return auth()->user()->isVerified();
         });
 
+        Blade::if('restricted', function () {
+            return auth()->user()->isRestricted();
+        });
+
         Blade::if('admin', function () {
             return auth()->user()->isAdmin();
         });

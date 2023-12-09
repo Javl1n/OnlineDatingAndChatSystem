@@ -2,9 +2,11 @@ import './bootstrap';
 import Alpine from 'alpinejs';
 // import Echo from 'laravel-echo';
 // import Pusher from 'pusher-js';
-
+import collapse from '@alpinejs/collapse';
+ 
 window.Alpine = Alpine;
 
+Alpine.plugin(collapse);
 Alpine.start();
 
 

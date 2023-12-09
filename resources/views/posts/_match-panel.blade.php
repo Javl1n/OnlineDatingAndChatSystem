@@ -10,7 +10,7 @@
                         @endphp
                         <div class="rounded-xl px-5 my-auto flex w-full justify-between">
                             <a href="{{ route('profile.show', ['user' => $user->id]) }}" class="flex">
-                                <x-profile-picture :src="$user->profile->url" />
+                                <x-profile-picture :src="asset($user->profile->url)" />
                                 <div class="flex flex-col justify-center">
                                     <span class="font-bold">{{ $user->name }}</span><br>
                                     <span class="text-sm text-gray-400">you both like: 
