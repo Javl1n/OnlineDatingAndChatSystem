@@ -20,6 +20,11 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('avatar');
         Storage::deleteDirectory('verification');
 
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@auth.com',
+            'admin' => true
+        ]);
         // User::factory()->create([
         //     'name' => 'Cherry Ann Soberano',
         //     'email' => 'cherryannsoberano@gmail.com',

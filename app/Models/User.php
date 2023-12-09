@@ -35,6 +35,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $with = ['profile', 'tags'];
+
     /**
      * The attributes that should be cast.
      *
@@ -58,9 +60,24 @@ class User extends Authenticatable
         return $this->morphOne(Media::class, 'mediable');
     }
 
+    public function liked()
+    {
+        return $this->hasMany(Like::class, 'user_id');
+    }
+
     public function verification()
     {
         return $this->hasOne(UserVerification::class);
+    }
+
+    public function isVerified()
+    {
+        return $this->verification?->verified;
+    }
+
+    public function isAdmin()
+    {
+        return $this->admin;
     }
 
     public function tags(): BelongsToMany

@@ -1,43 +1,53 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Home') }}
+            <div class="flex justify-between">
+                <div>{{ __('Home') }}</div>
+                <a class="text-sm font-normal bg-secondary-500 rounded-lg text-white px-4 py-2 xl:hidden">Match</a>
+            </div>
         </h2>
     </x-slot>
 
     <div class="flex justify-center ps-12">
-        @include('posts._match-panel')
-        <div class="flex flex-col gap-5 w-4/6 flex-shrink-0 text-slate-800 dark:text-white py-5 pe-12 overflow-y-scroll lg:h-[10vh] xl:h-[86vh]">
-                <div class=" bg-white shadow-sm dark:bg-slate-700 rounded-xl p-5">
-                    <div class="flex mb-5">
-                        <x-profile-picture :src="asset(auth()->user()->profile->url)" />
-                        <span class="pt-3 font-bold">{{ auth()->user()->name }}</span>
+        <div class="xl:w-2/6 p-5 me-5 hidden xl:block">
+            @include('posts._match-panel')
+        </div>
+        <div class="flex flex-col gap-5 w-full xl:w-4/6 flex-shrink-0 text-slate-800 dark:text-white py-5 pe-12 overflow-y-scroll h-[86vh]">
+                @verified
+                    <div class="bg-white shadow-sm dark:bg-slate-700 rounded-xl p-5">
+                        <div class="flex mb-5">
+                            <a href="{{ route('profile.show', ['user' => auth()->user()->id]) }}" class="flex">
+                            <x-profile-picture :src="asset(auth()->user()->profile->url)" />
+                            </a>
+                            <span class="pt-3 font-bold">{{ auth()->user()->name }}</span>
+                        </div>
+                        <div>
+                            <form action="{{ route('post.post') }}" method="post" enctype="multipart/form-data" >
+                                @csrf
+                                <textarea name="content" class="w-full h-28 resize-none rounded-md border-none shadow-md" placeholder="Post About Something" required></textarea>
+                                <div class="" x-data="imageViewer()">
+                                    <x-text-input accept="image/*" @change="fileChosen" name="file" type="file" class="w-full mt-3 p-2 bg-primary-200" />
+                                    <x-input-error :messages="$errors->get('file')" class="mt-2" />
+                                    <template class="" x-if="imageUrl">
+                                        <div class="flex flex-col justify-center mt-4 h-full">
+                                            <img :src="imageUrl"
+                                                class=" rounded border border-gray-200"
+                                            >
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="flex justify-end"><button class="bg-primary-500 text-white font-bold px-7 text-md py-2 rounded-full mt-3">POST</button></div>
+                            </form>
+                        </div>
                     </div>
-                    <div>
-                        <form action="{{ route('post.post') }}" method="post" enctype="multipart/form-data" >
-                            @csrf
-                            <textarea name="content" class="w-full h-28 resize-none rounded-md border-none shadow-md" placeholder="Post About Something" required></textarea>
-                            <div class="" x-data="imageViewer()">
-                                <x-text-input accept="image/*" @change="fileChosen" name="file" type="file" class="w-full mt-3 p-2 bg-primary-200" />
-                                <x-input-error :messages="$errors->get('file')" class="mt-2" />
-                                <template class="" x-if="imageUrl">
-                                    <div class="flex flex-col justify-center mt-4 h-full">
-                                        <img :src="imageUrl"
-                                            class=" rounded border border-gray-200"
-                                            {{-- style="width: 100px; height: 100px;" --}}
-                                        >
-                                    </div>
-                                </template>
-                            </div>
-                            <div class="flex justify-end"><button class="bg-primary-500 text-white font-bold px-7 text-md py-2 rounded-full mt-3">POST</button></div>
-                        </form>
-                    </div>
-                </div>
+                @endverified
                 @foreach ($posts as $post)
                     <div class="bg-white shadow-sm dark:bg-slate-700 rounded-xl">
                         <div class="flex justify-between m-5">
                             <div class="flex">
-                                <x-profile-picture :src="$post->user->profile->url" />
+                                <a href="{{ route('profile.show', ['user' => $post->user->id]) }}" class="flex">
+                                <x-profile-picture :src="asset($post->user->profile->url)" />
+                                </a>
                                 <span class="font-bold">{{ $post->user->name }} <br> <span class="text-gray-500 font-normal text-sm">{{ $post->created_at->diffForHumans() }}</span></span>
                             </div>
                             @mine($post->user->id)                              
@@ -57,12 +67,11 @@
                         </div>
                         <div class="border-t mt-3 mx-5"></div>
                         <div class="py-4 grid grid-cols-2">
-                            <div class="flex justify-center">
-                                <x-icon name="like" class="h-5 mr-2" />
-                                Like
-                            </div>
-                            <div class="flex justify-center">
-                                <x-icon name="comment" class="h-5 mr-2" />
+                            <livewire:like-post :post="$post" />
+                            <div class="flex justify-center text-gray-500">
+                                <div class="flex flex-col justify-center">
+                                    <x-icon name="comment" class="h-5 mr-2 fill-gray-500" />
+                                </div>
                                 Comment
                             </div>
                         </div>

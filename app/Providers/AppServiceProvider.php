@@ -26,5 +26,13 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('mine', function (int $id) {
             return $id === auth()->user()->id;
         });
+
+        Blade::if('verified', function () {
+            return auth()->user()->isVerified();
+        });
+
+        Blade::if('admin', function () {
+            return auth()->user()->isAdmin();
+        });
     }
 }
