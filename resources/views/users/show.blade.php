@@ -55,19 +55,29 @@
                                  <x-profile-picture :src="asset($post->user->profile->url)" />
                                  <span class="font-bold">{{ $post->user->name }} <br> <span class="text-gray-500 font-normal text-sm">{{ $post->created_at->diffForHumans() }}</span></span>
                              </div>
-                             @mine($post->user->id)                              
+                             {{-- @mine($post->user->id)                              
                              <div>
                                  <a href="" class="bg-accent-500 text-white px-3 py-1 rounded">edit</a>
                              </div>
-                             @endmine
+                             @endmine --}}
                          </div>
                          <div class="">
                              <p class="ms-5 mb-5">{{ $post->text_content }}</p>
                              <div>
                                  {{-- {{ $post?->media }} --}}
-                                 @isset($post->media->url)
-                                     <img src="{{ asset($post->media?->url) }}" class="">
-                                 @endisset
+                                 @php
+                                    $media = $post->media;
+                                @endphp
+                                @isset($media)
+                                    @if (in_array($media->mime_type, ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset($media->url) }}" class="">
+                                    @endif
+                                    @if($media->mime_type === 'mp4')
+                                        <video class="block ml-auto mr-auto" controls>
+                                            <source src="{{ asset($media->url) }}" type='video/mp4' >
+                                        </video>
+                                    @endif
+                                @endisset
                              </div>
                          </div>
                          <div class="border-t mt-3 mx-5"></div>

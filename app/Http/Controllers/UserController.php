@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function show(User $user){
         return view('users.show', [
-            'posts' => Post::where('user_id', $user->id)->latest()->get(),
+            'posts' => Post::where('user_id', $user->id)->whereNot('approved', false)->latest()->get(),
             'user' => $user,
         ]);
     }

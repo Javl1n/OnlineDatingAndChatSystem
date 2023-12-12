@@ -9,9 +9,19 @@
                         </div>
                         <div class=" rounded-xl bg-white pt-3 pb-4 px-5 max-w-md  md:break-words break-all">
                             <div>{{ $message->content }}</div>
-                            @isset($message->media->url)
-                                <img src="{{ asset($message->media?->url) }}" alt="wala kay picture" class="">
-                            @endisset    
+                            @php
+                                $media = $message->media;
+                            @endphp
+                            @isset($media)
+                                @if (in_array($media->mime_type, ['jpg', 'jpeg', 'png']))
+                                    <img src="{{ asset($media->url) }}" class="mt-2">
+                                @endif
+                                @if($media->mime_type === 'mp4')
+                                    <video class="block ml-auto mr-auto" controls>
+                                        <source src="{{ asset($media->url) }}" type='video/mp4' >
+                                    </video>
+                                @endif
+                            @endisset  
                         </div>
                         <div class="relative group-hover:block hidden" x-data='{report: false}'>
                             @isset($message->report->description)
@@ -41,9 +51,22 @@
                     <div class="justify-self-end flex">
                         <div class=" rounded-xl bg-pink-500 text-white pt-3 pb-4 px-5 flex-1 md:break-words break-all">
                             <div>{{ $message->content }}</div>
-                            @isset($message->media->url)
-                                <img src="{{ asset($message->media?->url) }}" alt="wala kay picture" class="mt-2 max-w-xl">
+                            @php
+                                $media = $message->media;
+                            @endphp
+                            @isset($media)
+                                @if (in_array($media->mime_type, ['jpg', 'jpeg', 'png']))
+                                    <img src="{{ asset($media->url) }}" class="mt-2 max-w-xl">
+                                @endif
+                                @if($media->mime_type === 'mp4')
+                                    <video class="block ml-auto mr-auto mt-2 max-w-xl" controls>
+                                        <source src="{{ asset($media->url) }}" type='video/mp4' >
+                                    </video>
+                                @endif
                             @endisset
+                            {{-- @isset($message->media->url)
+                                <img src="{{ asset($message->media?->url) }}" alt="wala kay picture" class="mt-2 max-w-xl">
+                            @endisset --}}
                         </div>
                         <div class="grid flex-shrink-0">
                             <x-profile-picture :src="asset($user->profile->url)" class="ml-4 rounded-full align-end" />

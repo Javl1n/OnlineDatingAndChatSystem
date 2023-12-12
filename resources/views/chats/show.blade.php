@@ -26,7 +26,7 @@
                         {{-- <x-input-error :messages="$errors->get('file')" class="mt-2" /> --}}
                         {{-- <x-text-input name="file" type="file" class="w-" /> --}}
                         <div x-data="">
-                            <x-icon x-on:click="clickFile" name="plus-fill" class="h-10 me-2 fill-primary-400" />
+                            <x-icon x-on:click="clickFile" name="picture" class="h-9 mt-px me-2 fill-primary-400" />
                             <script>
                                 function clickFile ()
                                 {
@@ -44,11 +44,11 @@
                             required
                             ></textarea>
                         <button>
-                            <x-icon name="send-fill" height="30" width="30" class="mr-2 fill-indigo-400 h-10 rotate-45" />
+                            <x-icon name="send-fill" height="30" width="30" class="mr-2 fill-primary-400 h-10 rotate-45" />
                         </button>
                     </div>
                     <div class="" x-data="imageViewer()">
-                        <input type="file" accept="image/*" @change="fileChosen" class="hidden" id="file" name="file" >
+                        <input type="file" @change="fileChosen" class="hidden" id="file" name="file" >
                         <template class="" x-if="imageUrl">
                             <img :src="imageUrl"
                                 class="object-contain h-48 rounded border mt-2 border-gray-200"

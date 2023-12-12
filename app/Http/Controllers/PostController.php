@@ -23,7 +23,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => [ File::image() ],
+            // 'file' => [ ],
             'content' => 'required'
         ]);
 

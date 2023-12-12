@@ -58,8 +58,18 @@
                             <p class="ms-5 mb-5">{{ $post->text_content }}</p>
                             <div>
                                 {{-- {{ $post?->media }} --}}
-                                @isset($post->media->url)
-                                    <img src="{{ asset($post->media?->url) }}" class="">
+                                @php
+                                    $media = $post->media;
+                                @endphp
+                                @isset($media)
+                                    @if (in_array($media->mime_type, ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset($media->url) }}" class="">
+                                    @endif
+                                    @if($media->mime_type === 'mp4')
+                                        <video controls>
+                                            <source src="{{ asset($media->url) }}" type='video/mp4' >
+                                        </video>
+                                    @endif
                                 @endisset
                             </div>
                         </div>

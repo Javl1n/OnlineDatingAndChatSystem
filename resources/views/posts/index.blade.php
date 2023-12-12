@@ -26,15 +26,15 @@
                                 @csrf
                                 <textarea name="content" class="w-full h-28 resize-none rounded-md border-none shadow-md" placeholder="Post About Something" required></textarea>
                                 <div class="" x-data="imageViewer()">
-                                    <x-text-input accept="image/*" @change="fileChosen" name="file" type="file" class="w-full mt-3 p-2 bg-primary-200" />
+                                    <x-text-input @change="fileChosen" name="file" type="file" id="file" class="w-full mt-3 p-2 bg-primary-200" />
                                     <x-input-error :messages="$errors->get('file')" class="mt-2" />
-                                    <template class="" x-if="imageUrl">
-                                        <div class="flex flex-col justify-center mt-4 h-full">
-                                            <img :src="imageUrl"
-                                                class=" rounded border border-gray-200"
-                                            >
-                                        </div>
-                                    </template>
+                                        {{-- <template class="" x-if="imageUrl">
+                                            <div class="flex flex-col justify-center mt-4 h-full">
+                                                <img :src="imageUrl"
+                                                    class=" rounded border border-gray-200"
+                                                >
+                                            </div>
+                                        </template>  --}}
                                 </div>
                                 <div class="flex justify-end"><button class="bg-primary-500 text-white font-bold px-7 text-md py-2 rounded-full mt-3">POST</button></div>
                             </form>
@@ -61,7 +61,14 @@
                             <div>
                                 {{-- {{ $post?->media }} --}}
                                 @isset($post->media->url)
-                                    <img src="{{ asset($post->media?->url) }}" class="">
+                                    @if (in_array($post->media->mime_type, ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset($post->media?->url) }}" class="">
+                                    @endif
+                                    @if($post->media->mime_type === 'mp4')
+                                        <video controls>
+                                            <source src="{{ asset($post->media->url) }}" type='video/mp4' >
+                                        </video>
+                                    @endif
                                 @endisset
                             </div>
                         </div>
@@ -84,10 +91,20 @@
                         </div>
                         <div class="">
                             <p class="ms-5 mb-5">{{ $post->text_content }}</p>
-                            <div>
+                            <div class="flex justify-center">
                                 {{-- {{ $post?->media }} --}}
-                                @isset($post->media->url)
-                                    <img src="{{ asset($post->media?->url) }}" class="">
+                                @php
+                                    $media = $post->media;
+                                @endphp
+                                @isset($media)
+                                    @if (in_array($media->mime_type, ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset($media->url) }}" class="">
+                                    @endif
+                                    @if($media->mime_type === 'mp4')
+                                        <video class="block ml-auto mr-auto" controls>
+                                            <source src="{{ asset($media->url) }}" type='video/mp4' >
+                                        </video>
+                                    @endif
                                 @endisset
                             </div>
                         </div>
